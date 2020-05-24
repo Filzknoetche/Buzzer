@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Buzzer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="pages">
+      <div class="header">
+        <h1>Buzzer</h1>
+        <div id="user-online">Online: <span>0</span></div>
+        <div id="room"></div>
+      </div>
+      <div class="login page">
+        <div class="form">
+          <h3 class="title">Wie ist dein Name?</h3>
+          <input class="usernameInput" type="text" maxlength="14" />
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js" charset="utf-8"></script>
+  </body>
+</html>
