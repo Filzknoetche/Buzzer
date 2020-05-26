@@ -18,6 +18,46 @@
           <input class="usernameInput" type="text" maxlength="14" />
         </div>
       </div>
+      <div class="roomlist" style="display: none;">
+        <button id="btnCreateRoom">Raum erstellen</button>
+        <button id="btnJoinRoom">Raum beitreten</button>
+      </div>
+
+      <div class="createroom" style="display: none;">
+        <div>
+          <input type="text" id="roomname" placeholder="Raumname">
+          <input type="number" id="roommaxplayer" placeholder="Max Spieler">
+          <input type="password" id="roompassword" placeholder="Passwort">
+        </div>
+        <div>
+          <button id="btnCreateGame">Erstellen</button>
+        </div>
+      </div>
+
+      <div class="lobby-list" style="display: none;">
+        <h3 class="title">Lobby</h3>
+        <div class="info">
+          <label for="inputGameId">Game ID:</label>
+          <input id="inputGameId" type="text" />
+        </div>
+        <div class="info buttons">
+          <button id="btnJoin" class="btn btn-primary">Beitreten</button>
+        </div>
+      </div>
+
+      <div class="lobby" style="display: none;">
+        <div class="playerlist">
+          <div>Player1</div>
+          <div>Player2</div>
+        </div>
+
+        <button id="btnStartGame">Starten</button>
+      </div>
+
+      <div class="game" style="display: none;">
+        <h1>Game</h1>
+      </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

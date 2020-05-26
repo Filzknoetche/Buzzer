@@ -10,19 +10,19 @@ html {
     background-color: #292C34;
 }
 
-.header {
+.pages .header {
     background: white;
     padding: 20px;
 }
 
-.header h1 {
+.pages .header h1 {
     color: #24272E;
     text-align: center;
     background-color: white;
     font-family: Asap, sans-serif;
 }
 
-#user-online{
+.pages .header #user-online{
     position: absolute;
     font-family: Asap, sans-serif;
     color: #000;
@@ -31,7 +31,7 @@ html {
     top: 25px;
     left: 25px;
 }
-#user-online span{
+.pages .header #user-online span{
     background-color: #fff;
 }
 
@@ -72,6 +72,14 @@ html {
     font-size: 200%;
 }
 
+.title {
+    color: white;
+    height: 100px;
+    width: 100%;
+    font-size: 200%;
+    letter-spacing: 3px;
+}
+
 .login.page .usernameInput {
     font-size: 200%;
     letter-spacing: 3px;
@@ -80,4 +88,16 @@ html {
 .login.page .title, .login.page .usernameInput {
     color: #fff;
     font-weight: 100;
+}
+
+/* GAME */
+
+#room{
+    position: absolute;
+    font-family: Asap, sans-serif;
+    color: #000;
+    background-color: #fff;
+    font-size: 32px;
+    top: 25px;
+    right: 25px;
 }

@@ -6,11 +6,18 @@ $(function () {
   let $usernameInput = $(".usernameInput"); // Input for username
   let $currentInput = $usernameInput.focus();
   let $loginPage = $(".login.page");
+  let $roomlist = $(".roomlist");
+  let $createroom = $(".createroom");
+  let $roomNameAndId = $("#room");
+  let $game = $('.game');
+  let $lobby = $('.lobby');
+  let $lobbylist = $('.lobby-list');
   let connected = false;
   let username;
   let userid;
   let id;
   let player;
+  let game;
 
   class Player {
     constructor(name, id) {
@@ -23,6 +30,13 @@ $(function () {
     }
     getPlayerId() {
       return this.id;
+    }
+  }
+
+  class Game {
+    constructor(roomId, roomName) {
+      this.roomId = roomId;
+      this.roomName = roomName;
     }
   }
 
@@ -56,8 +70,6 @@ $(function () {
   });
 
   const addParticipantsMessage = (data) => {
-    console.log(data);
-
     useronline.html(data.numUsers);
     usersonline.html(data.numUsers);
   };
@@ -86,7 +98,7 @@ $(function () {
       // Tell the server your username
       socket.emit("add user", username);
       $loginPage.fadeOut();
-      //$roomlistview.fadeIn();
+      $roomlist.fadeIn();
       $loginPage.off("click");
     } else {
       console.log("Inkorrekter Benutzername");
@@ -123,4 +135,66 @@ $(function () {
       $("#rooms tr").remove(":contains(" + data.room.roomid + ")");
     }
   });
+
+  $("#btnCreateRoom").on("click", function () {
+    console.log("Create");
+    $roomlist.fadeOut();
+    $createroom.fadeIn();
+
+    $("#btnCreateGame").on("click", function () {
+      let roomname = cleanInput($("#roomname").val().trim());
+      let roommaxplayer = $("#roommaxplayer").val();
+      let roompassword = cleanInput($("#roompassword").val().trim());
+      console.log(roomname + " " + roommaxplayer + " " + roompassword);
+
+      if (roomname.length >= 1) {
+        var data = {
+          username: player.getPlayerName(),
+          roomname: roomname,
+          roompassword: roompassword,
+          roommaxplayer: roommaxplayer,
+          id: player.getPlayerId(),
+          game,
+        };
+        socket.emit("hostCreateNewGame", data);
+      } else {
+        console.log("Raumname zu kurz");
+      }
+    });
+  });
+
+  $("#btnJoinRoom").click(function() {
+    $roomlist.hide();
+    $lobbylist.show();
+  });
+
+  $("#btnJoin").click(function() {
+    const name = username;
+    const roomID = $("#inputGameId").val();
+    if (!name || !roomID) {
+      alert("Please enter your name and game ID.");
+      return;
+    }
+    console.log("dgsdgjdshgfkj");
+    
+    socket.emit("playerJoinGame", { name, room: roomID });
+    $lobbylist.hide();
+  });
+
+  socket.on("newGameCreated", data => {
+    game = new Game(data.gameId, data.roomname);
+    $createroom.hide();
+    $lobby.show();
+    $roomNameAndId.html(data.roomname + "/" + data.gameId);
+  });
+
+  $("#userTable").on("dblclick", "tbody tr", function(event) {
+    const name = username;
+    const roomID = $(this)
+      .children()
+      .data("room");
+
+    socket.emit("playerWantToJoin", { name, room: roomID });
+  });
+
 });
