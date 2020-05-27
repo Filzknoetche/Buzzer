@@ -40,8 +40,6 @@ $(function () {
     }
   }
 
-  const log = (message, options) => {};
-
   socket.on("userconnected", (data) => {
     addParticipantsMessage(data);
     addRooms(data);
@@ -122,13 +120,11 @@ $(function () {
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on("user joined", (data) => {
-    log(data.username + " joined");
     addParticipantsMessage(data);
   });
 
   // Whenever the server emits 'user left', log it in the chat body
   socket.on("user left", (data) => {
-    log(data.username + " left");
     addParticipantsMessage(data);
     addRooms(data);
     if (data.room != null) {
@@ -175,7 +171,6 @@ $(function () {
       alert("Please enter your name and game ID.");
       return;
     }
-    console.log("dgsdgjdshgfkj");
     
     socket.emit("playerJoinGame", { name, room: roomID });
     $lobbylist.hide();
@@ -195,6 +190,23 @@ $(function () {
       .data("room");
 
     socket.emit("playerWantToJoin", { name, room: roomID });
+  });
+
+  socket.on("playerJoined", data => {
+
+    
+    
+    for (let index in data.room.players) {
+      let username = data.room.players[index].player;
+      let admin = data.room.players[index].admin;
+      console.log(data.room.players[index].player);
+      
+      $("#playerlist").append(
+        "<div>" + username + "</div>"
+      );
+      
+    }
+    
   });
 
 });

@@ -1,4 +1,3 @@
-// Setup basic express server
 let express = require("express");
 let app = express();
 let path = require("path");
@@ -93,7 +92,6 @@ io.on("connection", (socket) => {
   socket.on("playerJoinGame", playerJoinGame);
 
   function hostCreateNewGame(data) {
-    // Create a unique Socket.IO Room
     let thisGameId = (Math.random() * 100000) | 0;
     let players = [];
     let element = {};
@@ -117,7 +115,6 @@ io.on("connection", (socket) => {
     ++numRooms;
     let user = users[socket.id];
     user.inGame = true;
-    // Return the Room ID (gameId) and the socket ID (mySocketId) to the browser client
     socket.emit("newGameCreated", {
       gameId: thisGameId,
       mySocketId: data.id,
@@ -127,7 +124,6 @@ io.on("connection", (socket) => {
       rooms: rooms[thisGameId],
       numRooms: numRooms,
     });
-    // Join the Room and wait for the players
     socket.join(thisGameId.toString());
   }
 
@@ -149,7 +145,7 @@ io.on("connection", (socket) => {
         socket.join(data.room);
         socket.broadcast
           .to(data.room)
-          .emit("player1", { name: data.name, room: room });
+          .emit("playerJoined", { name: data.name, room: room });
         //socket.emit('player2', { name: data.name, id: data.room, room: room});
         io.emit("update-lobbylist", { rooms: rooms[data.room] });
       } else {

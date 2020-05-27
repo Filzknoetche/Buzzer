@@ -26,7 +26,7 @@
       <div class="createroom" style="display: none;">
         <div>
           <input type="text" id="roomname" placeholder="Raumname">
-          <input type="number" id="roommaxplayer" placeholder="Max Spieler">
+          <input type="number" id="roommaxplayer" value="4" min="2" max="8">
           <input type="password" id="roompassword" placeholder="Passwort">
         </div>
         <div>
@@ -46,9 +46,9 @@
       </div>
 
       <div class="lobby" style="display: none;">
-        <div class="playerlist">
-          <div>Player1</div>
-          <div>Player2</div>
+        <div class="playerlist" id="playerlist">
+          <!-- <div>Player1</div>
+          <div>Player2</div> -->
         </div>
 
         <button id="btnStartGame">Starten</button>
